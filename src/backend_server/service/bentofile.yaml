@@ -1,0 +1,13 @@
+service: "bento_service:forcast_service"
+labels:
+  owner: "Thang"
+  project: "time-series-forecasting"
+python:
+  packages:
+    - tensorflow
+    - numpy
+    - pydantic
+    - bentoml
+include:
+  - "*.py"
+  - "requirements.txt"
