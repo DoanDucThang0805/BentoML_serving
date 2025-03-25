@@ -1,4 +1,4 @@
-service: "bento_service:forcast_service"
+service: "bento_service:forecast_service"
 labels:
   owner: "Thang"
   project: "time-series-forecasting"
