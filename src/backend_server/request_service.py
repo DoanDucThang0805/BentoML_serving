@@ -1,46 +1,44 @@
-import json
 import requests
 import numpy as np
+import pandas as pd
 
-SERVICE_URL = 'http://localhost:5001/forecast'  # Đảm bảo trùng với endpoint của BentoML
+# Define the API endpoint
+base_url = "http://localhost:5001"
+predict_url = f"{base_url}/forecast"
+headers = {"Content-Type": "application/json"}
+# Number of samples
+num_samples = 246
 
-def make_request_to_bento_service(service_url: str, input_array: np.ndarray) -> np.ndarray:
-    serialized_input_data = json.dumps(input_array.tolist())  # Chuyển NumPy array thành JSON
-    try:
-        response = requests.post(
-            service_url,
-            data=serialized_input_data,
-            headers={"content-type": "application/json"},
-            timeout=10  # Thêm timeout để tránh request treo mãi
-        )
-    except requests.exceptions.RequestException as e:
-        raise Exception(f"Lỗi kết nối đến API: {e}")
-
-    if response.status_code != 200:
-        raise Exception(f"Lỗi {response.status_code}: {response.text}")
-
-    try:
-        result_json = json.loads(response.text)  # Kiểm tra response có đúng JSON không
-        result_array = np.array(result_json)  # Convert sang NumPy
-    except json.JSONDecodeError:
-        raise Exception("Lỗi: API không trả về JSON hợp lệ")
-    except Exception as e:
-        raise Exception(f"Lỗi khi parse JSON: {e}")
-
-    return result_array
-
-
-def prepare_data():
-    data = np.random.rand(1, 150, 32)  # Dữ liệu đầu vào có shape (1, 150, 32)
-    return data
+# Create sample data
+data = {
+    "date": pd.date_range(start="2024-01-01", periods=num_samples, freq="h").strftime('%Y-%m-%d %H:%M:%S').tolist(),
+    "cur": np.random.uniform(0, 100, num_samples).tolist(),
+    "cur_R": np.random.uniform(0, 100, num_samples).tolist(),
+    "cur_S": np.random.uniform(0, 100, num_samples).tolist(),
+    "cur_T": np.random.uniform(0, 100, num_samples).tolist(),
+    "vol_RN": np.random.uniform(200, 250, num_samples).tolist(),
+    "vol_SN": np.random.uniform(200, 250, num_samples).tolist(),
+    "vol_TN": np.random.uniform(200, 250, num_samples).tolist(),
+    "vol_RS": np.random.uniform(350, 400, num_samples).tolist(),
+    "vol_ST": np.random.uniform(350, 400, num_samples).tolist(),
+    "vol_TR": np.random.uniform(350, 400, num_samples).tolist(),
+    "pow_P": np.random.uniform(500, 1000, num_samples).tolist(),
+    "pow_Q": np.random.uniform(50, 200, num_samples).tolist(),
+    "pow_S": np.random.uniform(500, 1200, num_samples).tolist(),
+    "pow_DC": np.random.uniform(100, 500, num_samples).tolist(),
+    "tot_Exp": np.random.randint(1000, 5000, num_samples).tolist(),
+    "cosPhi": np.random.uniform(0.8, 1, num_samples).tolist(),
+    "temp": np.random.uniform(15, 40, num_samples).tolist(),
+}
 
 
-if __name__ == '__main__':
-    data = prepare_data()
-    try:
-        result = make_request_to_bento_service(SERVICE_URL, data)
-        print(result)
-        print(type(result))
-        print(result.shape)
-    except Exception as e:
-        print(f"Lỗi khi gọi API: {e}")
+# Send POST request
+response = requests.post(
+    predict_url,
+    json={"data": data},
+    headers={"content-type": "application/json"}
+)
+
+# Print response
+print("Status Code:", response.status_code)
+print("Response JSON:", response.json())

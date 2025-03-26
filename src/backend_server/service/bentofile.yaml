@@ -1,13 +1,16 @@
-service: "bento_service:forecast_service"
+service: "bento_service:Forecast"
 labels:
   owner: "Thang"
   project: "time-series-forecasting"
 python:
   packages:
     - tensorflow
+    - keras
     - numpy
-    - pydantic
     - bentoml
+    - scikit-learn
+    - pandas
+    - openpyxl
 include:
   - "*.py"
   - "requirements.txt"
