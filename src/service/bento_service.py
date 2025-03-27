@@ -17,7 +17,7 @@ my_image = bentoml.images.PythonImage(python_version="3.11") \
 
 
 class Forecast:
-    bento_model = bentoml.models.BentoModel("timeseries_model:sq35vuqkwkqt6uhl")
+    bento_model = bentoml.models.BentoModel("timeseries_model:latest")
 
 
     def __init__(self):
