@@ -56,8 +56,8 @@ jobs:
           # Containerize Bento với tag cụ thể
           bentoml containerize $BENTO_TAG 
 
-          # Lưu tên image vào biến môi trường
-          echo "BENTO_IMAGE=$BENTO_TAG" >> $GITHUB_ENV
+          # Lưu tên image đầy đủ vào biến môi trường
+          echo "BENTO_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/$BENTO_TAG" >> $GITHUB_ENV
 
       # 7. Log in to Docker Hub
       - name: Log in to Docker Hub
