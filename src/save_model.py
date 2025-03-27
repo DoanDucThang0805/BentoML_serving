@@ -13,5 +13,6 @@ def load_model_and_save_to_bento(model_path: Path) -> None:
 
 
 if __name__ == "__main__":
-    path = Path("/media/icnlab/Data/Thang/TimeSeriesForecasting/colabfpt/src/backend_server/Model/best_tot_Exp_model.h5")
+    model_path = "src/backend_server/Model/best_tot_Exp_model.h5"
+    path = Path("model_path")
     load_model_and_save_to_bento(path)
