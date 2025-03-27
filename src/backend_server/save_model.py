@@ -7,10 +7,11 @@ import bentoml
 
 def load_model_and_save_to_bento(model_path: Path) -> None:
     model = load_model(model_path, custom_objects={"mse": mean_squared_error})
-    bento_model = bentoml.keras.save_model("timeseries_model", model)
+    with tf.device("/device:GPU:0"):
+        bento_model = bentoml.keras.save_model("timeseries_model", model)
     print(f"bento model tag = {bento_model.tag}")
 
 
 if __name__ == "__main__":
-    path = Path("/media/icnlab/Data/Thang/Time Series Forecasting/colabfpt/src/backend_server/Model/best_tot_Exp_model.h5")
+    path = Path("/media/icnlab/Data/Thang/TimeSeriesForecasting/colabfpt/src/backend_server/Model/best_tot_Exp_model.h5")
     load_model_and_save_to_bento(path)
