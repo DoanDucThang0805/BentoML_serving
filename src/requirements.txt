@@ -1,0 +1,7 @@
+bentoml
+numpy
+pandas
+scikit-learn
+tensorflow[and-cuda]
+openpyxl
+pytest
