@@ -13,5 +13,5 @@ def load_model_and_save_to_bento(model_path: Path) -> None:
 
 
 if __name__ == "__main__":
-    path = Path("src/service/Model/best_tot_Exp_model.h5")
+    path = Path("/home/runner/work/BentoML_serving/BentoML_serving/src/service/Model/best_tot_Exp_model.h5")
     load_model_and_save_to_bento(path)
