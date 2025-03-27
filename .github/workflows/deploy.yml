@@ -42,22 +42,22 @@ jobs:
         run: |
           bentoml build
 
-      # # 6. Containerize BentoML service
-      # - name: Containerize BentoML service
-      #   id: containerize
-      #   working-directory: src/service
-      #   run: |
-      #     # Lấy tag mới nhất của Bento
-      #     BENTO_TAG=$(bentoml list | grep forecast | head -n 1 | awk '{print $1}')
+      # 6. Containerize BentoML service
+      - name: Containerize BentoML service
+        id: containerize
+        working-directory: src/service
+        run: |
+          # Lấy tag mới nhất của Bento
+          BENTO_TAG=$(bentoml list | grep forecast | head -n 1 | awk '{print $1}')
 
-      #     # Lưu tag của Bento vào biến môi trường
-      #     echo "BENTO_TAG=$BENTO_TAG" >> $GITHUB_ENV
+          # Lưu tag của Bento vào biến môi trường
+          echo "BENTO_TAG=$BENTO_TAG" >> $GITHUB_ENV
 
-      #     # Containerize Bento với tag cụ thể
-      #     bentoml containerize $BENTO_TAG 
+          # Containerize Bento với tag cụ thể
+          bentoml containerize $BENTO_TAG 
 
-      #     # Lưu tên image vào biến môi trường
-      #     echo "BENTO_IMAGE=$BENTO_TAG" >> $GITHUB_ENV
+          # Lưu tên image vào biến môi trường
+          echo "BENTO_IMAGE=$BENTO_TAG" >> $GITHUB_ENV
 
       # # 7. Log in to Docker Hub
       # - name: Log in to Docker Hub
