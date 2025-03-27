@@ -4,7 +4,7 @@ labels:
   project: "time-series-forecasting"
 python:
   packages:
-    - tensorflow
+    - tensorflow[and-cuda]
     - keras
     - numpy
     - bentoml
@@ -14,3 +14,8 @@ python:
 include:
   - "*.py"
   - "requirements.txt"
+  - "model/*"
+docker:
+  base_image: tensorflow/tensorflow:latest-gpu
+  env:
+    DEBIAN_FRONTEND: "noninteractive"

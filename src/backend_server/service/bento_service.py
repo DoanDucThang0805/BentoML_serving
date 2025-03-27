@@ -6,7 +6,7 @@ import asyncio
 
 
 my_image = bentoml.images.PythonImage(python_version="3.11") \
-    .python_packages("tensorflow", "numpy", "pandas", "scikit-learn", "keras")
+    .python_packages("tensorflow[and-cuda]", "numpy", "pandas", "scikit-learn", "keras")
 
 
 @bentoml.service(
@@ -17,12 +17,12 @@ my_image = bentoml.images.PythonImage(python_version="3.11") \
 
 
 class Forecast:
-    bento_model = bentoml.models.BentoModel("timeseries_model:trurguaha67zouhl")
+    bento_model = bentoml.models.BentoModel("timeseries_model:sq35vuqkwkqt6uhl")
 
 
     def __init__(self):
         # Load model với đúng tag
-        self.model = bentoml.keras.load_model(self.bento_model, device_name = "/GPU:0")
+        self.model = bentoml.keras.load_model(self.bento_model, device_name = "/device:GPU:0")
 
 
 
@@ -125,7 +125,7 @@ class Forecast:
     
     
     @bentoml.api
-    async def forecast(self, data: dict) -> dict:
+    async def predict(self, data: dict) -> dict:
         input_data = self.preprocessing_data(data_input = data, batch_size = 1)
         result = await asyncio.to_thread(self.model.predict, input_data)
         json_result = self.post_processing(output_data = result.tolist())
