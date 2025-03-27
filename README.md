@@ -42,13 +42,14 @@ Dự án này nhằm triển khai mô hình học sâu (Deep Learning) sử dụ
 1. Chạy file save_model.py để load model vào bento
     ```bash
     python save_model.py
+ 
     ```
 
 2. Kiểm tra xem model đã được lưu hay chưa
     ```bash
     bentoml models list
-    ```
-    ![bento model](./images/listmodels.png)
+    ````
+    ![bento model](/media/icnlab/Data/Thang/TimeSeriesForecasting/colabfpt/images/listmodels.png)
 
 3. Triển khai service:
     ```bash
@@ -59,7 +60,7 @@ Dự án này nhằm triển khai mô hình học sâu (Deep Learning) sử dụ
     ```bash
     bentoml list
     ```
-    ![bento](./images/image.png)
+    ![bento](/media/icnlab/Data/Thang/TimeSeriesForecasting/colabfpt/images/image.png)
 
 4. Containerize bento
     ```bash
@@ -76,7 +77,6 @@ Dự án này nhằm triển khai mô hình học sâu (Deep Learning) sử dụ
     ```bash
     python request_service.py
     ```
-
 ## Đóng góp
 
 Nếu bạn muốn đóng góp cho dự án, vui lòng tạo pull request hoặc mở issue mới.
